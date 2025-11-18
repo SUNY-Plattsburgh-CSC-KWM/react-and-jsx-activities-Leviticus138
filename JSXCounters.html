@@ -17,12 +17,21 @@
       return (
         <main>
           <p>Counter: {counter}</p>
-          <button onClick={() => setCounter((value) => value + 1)}>
-            Increment
+          <button onClick={() => setCounter((value) => value = parseInt(prompt("Give me number")) + parseInt(prompt("Give me another number to add")))}>
+            +
+          </button>
+          <button onClick={() => setCounter((value) => value = parseInt(prompt("Give me number")) - parseInt(prompt("Give me another number to subtract")))}>
+            -
+          </button>
+          <button onClick={() => setCounter((value) => value = parseInt(prompt("Give me number")) * parseInt(prompt("Give me another number to multiply by")))}>
+            *
+          </button>
+          <button onClick={() => setCounter((value) => value = parseInt(prompt("Give me number")) / parseInt(prompt("Give me another number to divide by")))}>
+            /
           </button>
         </main>
       );
-    }
+    }//end counter
 
     function App() {
       return (
@@ -32,7 +41,7 @@
           <Counter start={-64} />
         </div>
       );
-    }
+    }//end app
 
     const root = ReactDOM.render(<App />, document.getElementById("root"));
 

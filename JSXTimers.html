@@ -12,38 +12,45 @@
   <script src="react/babel.js"></script>
   <script type="text/babel">
 
-    function Counter({ start }) {
-        const [counter, setCounter] = React.useState(start);
-
-	React.useEffect(() => {
-            const tickTock = () => {
-		setCounter((value) => value + 1);
-            }
+    function Counter({name, start, speed}) {
+      const [counter, setCounter] = React.useState(start);
+      const [spd, setSpd] = React.useState(speed);
+      const [nm, setNm] = React.useState(name);
+      React.useEffect(() => {
+        const tickTock = () => {
+          setCounter((value) => value + 1);
+        }
+        function updateSpeed(val){
+          setSpd(parseInt(val))
+        }
+        const timer = setInterval(tickTock, spd);
+        return () => {
+        clearInterval(timer);
+        };
+      }, []);  // [] tells it to only run once
 	    
-            const timer = setInterval(tickTock, 1000);
-
-	    return () => {
-		clearInterval(timer);
-	    };
-
-	}, []);  // [] tells it to only run once
-	    
-        return (
-	   <main>
-	      <p>Counter: {counter}</p>
-		<button onClick={() => setCounter(0)}>
-	          Reset
-              </button>
-	   </main>
-	);
-    }
+      return (
+	      <main>
+	        <p>{nm}: {counter}</p>
+		      <button onClick={() => setCounter(parseInt(prompt("New time: ")))}>
+	        Set Timer
+          </button>
+          <button onClick={() => updateSpeed(prompt("New Speed:"))}>
+	        Set Timer Speed
+          </button>
+          <button onClick={() => setNm(prompt("New name:"))}>
+	        Set Timer Name
+          </button>
+	      </main>
+      );
+    }//end function counter
 
     function App() {
       return (
         <div>
-          <Counter start={0} />
-          <Counter start={123} />
-          <Counter start={-64} />
+          <Counter name="Counter1" start={0} speed={20}/>
+          <Counter name="Counter2" start={0} speed={1000}/>
+          <Counter name="Counter3" start={-64} speed={1000}/>
         </div>
       );
     }
